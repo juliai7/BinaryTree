@@ -48,7 +48,24 @@ public class BST {
      */
     public boolean search(int val) {
         // TODO: Complete the search function
-        return false;
+        return treeSearch(val, root);
+    }
+
+    public boolean treeSearch(int val, BSTNode newRoot) {
+        if (newRoot == null) {
+            return false;
+        }
+        else if (val == newRoot.getVal()) {
+            return true;
+        }
+
+        else if (val > newRoot.getVal()) {
+            newRoot = newRoot.getRight();
+        }
+        else if (val < newRoot.getVal()) {
+            newRoot = newRoot.getLeft();
+        }
+        return treeSearch(val, newRoot);
     }
 
     /**
@@ -106,21 +123,21 @@ public class BST {
         System.out.println("\nSearching for 22 in the tree");
         System.out.println(tree.search(22));
 
-        System.out.println("\nPreorder traversal of binary tree is");
-        ArrayList<BSTNode> sol = tree.getPreorder();
-        printNodes(sol);
-
-        System.out.println("\nInorder traversal of binary tree is");
-        sol = tree.getInorder();
-        printNodes(sol);
-
-        System.out.println("\nPostorder traversal of binary tree is");
-        sol = tree.getPostorder();
-        printNodes(sol);
-
-        tree.insert(8);
-        System.out.println("\nInorder traversal of binary tree is");
-        sol = tree.getInorder();
-        printNodes(sol);
+//        System.out.println("\nPreorder traversal of binary tree is");
+//        ArrayList<BSTNode> sol = tree.getPreorder();
+//        printNodes(sol);
+//
+//        System.out.println("\nInorder traversal of binary tree is");
+//        sol = tree.getInorder();
+//        printNodes(sol);
+//
+//        System.out.println("\nPostorder traversal of binary tree is");
+//        sol = tree.getPostorder();
+//        printNodes(sol);
+//
+//        tree.insert(8);
+//        System.out.println("\nInorder traversal of binary tree is");
+//        sol = tree.getInorder();
+//        printNodes(sol);
     }
 }
