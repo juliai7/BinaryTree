@@ -52,19 +52,23 @@ public class BST {
     }
 
     public boolean treeSearch(int val, BSTNode newRoot) {
+        // If the value isn't in the tree
         if (newRoot == null) {
             return false;
         }
+        // Once found the value in the tree
         else if (val == newRoot.getVal()) {
             return true;
         }
-
+        // Traverse down the right of the tree if it's greater than the root
         else if (val > newRoot.getVal()) {
             newRoot = newRoot.getRight();
         }
+        // Traverse down the left of the tree if it's less than the root
         else if (val < newRoot.getVal()) {
             newRoot = newRoot.getLeft();
         }
+        // Recursive call until you've either reached the end or found the value
         return treeSearch(val, newRoot);
     }
 
@@ -73,7 +77,21 @@ public class BST {
      */
     public ArrayList<BSTNode> getInorder() {
         // TODO: Complete inorder traversal
-        return null;
+        ArrayList<BSTNode> arr = new ArrayList<BSTNode>();
+        return inOrder(root, arr);
+    }
+    public ArrayList<BSTNode> inOrder(BSTNode val, ArrayList<BSTNode> arr) {
+        // If reached the leaf
+        if (val == null) {
+            return arr;
+        }
+        // Recursively call left hand side first until reach the leaf
+        inOrder(val.getLeft(), arr);
+        // Gets the root
+        arr.add(val);
+        // Gets the right hand side
+        inOrder(val.getRight(), arr);
+        return arr;
     }
 
     /**
@@ -81,7 +99,18 @@ public class BST {
      */
     public ArrayList<BSTNode> getPreorder() {
         // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> arr = new ArrayList<BSTNode>();
+        return preOrder(root, arr);
+    }
+    public ArrayList<BSTNode> preOrder(BSTNode val, ArrayList<BSTNode> arr) {
+        // Same as inOrder but flips the order it's checking to root, left, right
+        if (val == null) {
+            return arr;
+        }
+        arr.add(val);
+        preOrder(val.getLeft(), arr);
+        preOrder(val.getRight(), arr);
+        return arr;
     }
 
     /**
@@ -89,7 +118,18 @@ public class BST {
      */
     public ArrayList<BSTNode> getPostorder() {
         // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> arr = new ArrayList<BSTNode>();
+        return postOrder(root, arr);
+    }
+    public ArrayList<BSTNode> postOrder(BSTNode val, ArrayList<BSTNode> arr) {
+        // Same as inOrder but flips the order its checking to left, right, root
+        if (val == null) {
+            return arr;
+        }
+        postOrder(val.getLeft(), arr);
+        postOrder(val.getRight(), arr);
+        arr.add(val);
+        return arr;
     }
 
     /**
@@ -100,6 +140,23 @@ public class BST {
      */
     public void insert(int val) {
         // TODO: Complete insert
+        root = inserts(val, root);
+    }
+    // Recursively returns the tree with the node inserted
+    public BSTNode inserts(int val, BSTNode curr) {
+        // Checks if current one is a leaf and creates new value to put into the tree
+        if (curr == null) {
+            return new BSTNode(val);
+        }
+        if (val < curr.getVal()) {
+            // Set curr's left child equal to the value of what insert returns
+            curr.setLeft(inserts(val, curr.getLeft()));
+        }
+        else if (val > curr.getVal()) {
+            // Set curr's right child equal to the value of what insert returns
+            curr.setRight(inserts(val, curr.getRight()));
+        }
+        return curr;
     }
 
     /**
@@ -123,21 +180,21 @@ public class BST {
         System.out.println("\nSearching for 22 in the tree");
         System.out.println(tree.search(22));
 
-//        System.out.println("\nPreorder traversal of binary tree is");
-//        ArrayList<BSTNode> sol = tree.getPreorder();
-//        printNodes(sol);
-//
-//        System.out.println("\nInorder traversal of binary tree is");
-//        sol = tree.getInorder();
-//        printNodes(sol);
-//
-//        System.out.println("\nPostorder traversal of binary tree is");
-//        sol = tree.getPostorder();
-//        printNodes(sol);
-//
-//        tree.insert(8);
-//        System.out.println("\nInorder traversal of binary tree is");
-//        sol = tree.getInorder();
-//        printNodes(sol);
+        System.out.println("\nPreorder traversal of binary tree is");
+        ArrayList<BSTNode> sol = tree.getPreorder();
+        printNodes(sol);
+
+        System.out.println("\nInorder traversal of binary tree is");
+        sol = tree.getInorder();
+        printNodes(sol);
+
+        System.out.println("\nPostorder traversal of binary tree is");
+        sol = tree.getPostorder();
+        printNodes(sol);
+
+        tree.insert(8);
+        System.out.println("\nInorder traversal of binary tree is");
+        sol = tree.getInorder();
+        printNodes(sol);
     }
 }
