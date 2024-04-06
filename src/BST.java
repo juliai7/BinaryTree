@@ -140,6 +140,7 @@ public class BST {
      */
     public void insert(int val) {
         // TODO: Complete insert
+        // Set current tree to a tree with an inserted node
         root = inserts(val, root);
     }
     // Recursively returns the tree with the node inserted
